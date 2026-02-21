@@ -1,0 +1,9 @@
+{
+  "name": "fullwidth-halfwidth-api",
+  "version": "1.0.0",
+  "description": "Japanese Fullwidth/Halfwidth text conversion API",
+  "main": "index.js",
+  "scripts": { "start": "node index.js" },
+  "dependencies": { "express": "^4.21.0" },
+  "repository": { "type": "git", "url": "git+https://github.com/shinogw/fullwidth-halfwidth-api.git" }
+}
