@@ -1,0 +1,59 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Fullwidth Halfwidth Converter API",
+    "description": "Convert Japanese text between Fullwidth (全角) and Halfwidth (半角) characters. Supports ASCII, Katakana, and space conversion with granular control.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    { "url": "https://fullwidth-halfwidth-api-production.up.railway.app" }
+  ],
+  "paths": {
+    "/convert": {
+      "post": {
+        "operationId": "convertText",
+        "summary": "Convert fullwidth/halfwidth text",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["text"],
+                "properties": {
+                  "text": { "type": "string", "description": "Text to convert", "example": "Ｈｅｌｌｏ　Ｗｏｒｌｄ！" },
+                  "direction": { "type": "string", "enum": ["halfwidth", "fullwidth"], "default": "halfwidth" },
+                  "ascii": { "type": "boolean", "default": true, "description": "Convert ASCII characters" },
+                  "katakana": { "type": "boolean", "default": true, "description": "Convert Katakana characters" },
+                  "space": { "type": "boolean", "default": true, "description": "Convert spaces" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful conversion",
+            "content": {
+              "application/json": {
+                "example": { "result": "Hello World!", "original": "Ｈｅｌｌｏ　Ｗｏｒｌｄ！", "direction": "halfwidth" }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "convertTextGet",
+        "summary": "Convert fullwidth/halfwidth text (GET)",
+        "parameters": [
+          { "name": "text", "in": "query", "required": true, "schema": { "type": "string" }, "example": "Ｈｅｌｌｏ" },
+          { "name": "direction", "in": "query", "schema": { "type": "string", "default": "halfwidth" } },
+          { "name": "ascii", "in": "query", "schema": { "type": "string", "default": "true" } },
+          { "name": "katakana", "in": "query", "schema": { "type": "string", "default": "true" } },
+          { "name": "space", "in": "query", "schema": { "type": "string", "default": "true" } }
+        ],
+        "responses": { "200": { "description": "Successful conversion" } }
+      }
+    }
+  }
+}
